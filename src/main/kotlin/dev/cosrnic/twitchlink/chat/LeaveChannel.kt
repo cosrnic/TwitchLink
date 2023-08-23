@@ -11,7 +11,7 @@ fun leaveChannel(channel: String) {
 
     if (!twitchClient.chat.isChannelJoined(channel)) {
         mc.inGameHud.chatHud.addMessage(Utils.prefix.copy().append(Text.literal("Not connected to ${channel}'s chat!").formatted(Formatting.RED)))
-        return;
+        return
     }
     twitchClient.chat.leaveChannel(channel)
 
