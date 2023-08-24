@@ -4,6 +4,7 @@ import com.github.twitch4j.TwitchClient
 import com.github.twitch4j.TwitchClientBuilder
 import com.github.twitch4j.chat.events.channel.ChannelMessageEvent
 import dev.cosrnic.twitchlink.commands.TwitchLinkCommand
+import dev.cosrnic.twitchlink.hud.TwitchHud
 import dev.cosrnic.twitchlink.twitchevents.twitchMessageEvent
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
@@ -16,6 +17,8 @@ object TwitchLink : ModInitializer {
     var mc: MinecraftClient = MinecraftClient.getInstance()
 
     var chatList: List<String> = listOf()
+
+    @JvmStatic val twitchHud = TwitchHud()
 
     override fun onInitialize() {
 

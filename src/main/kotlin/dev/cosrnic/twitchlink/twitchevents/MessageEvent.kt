@@ -2,6 +2,7 @@ package dev.cosrnic.twitchlink.twitchevents
 
 import com.github.twitch4j.chat.events.channel.ChannelMessageEvent
 import dev.cosrnic.twitchlink.TwitchLink
+import dev.cosrnic.twitchlink.config.Config
 import dev.cosrnic.twitchlink.utils.Utils
 import net.minecraft.text.*
 import net.minecraft.util.Formatting
@@ -9,7 +10,7 @@ import net.minecraft.util.Formatting
 fun twitchMessageEvent(event: ChannelMessageEvent) {
     val text = Text.empty()
         .append(
-            Text.literal("[TL] ").setStyle(
+            Text.literal(if (Config.separateChatHud) "[${event.messageEvent.channelName.orElse(event.channel.name)}] " else "[TL] ").setStyle(
                 Style.EMPTY.withHoverEvent(
                     HoverEvent(
                         HoverEvent.Action.SHOW_TEXT, Text.literal("TwitchLink").formatted(Formatting.LIGHT_PURPLE).append(
@@ -21,7 +22,7 @@ fun twitchMessageEvent(event: ChannelMessageEvent) {
                         "https://github.com/cosrnic/TwitchLink"
                     )
                 )
-            ).formatted(Formatting.LIGHT_PURPLE)
+            ).formatted(if (Config.separateChatHud) Formatting.DARK_GRAY else Formatting.LIGHT_PURPLE)
         )
 
     val badges = event.messageEvent.badges
@@ -90,7 +91,10 @@ fun twitchMessageEvent(event: ChannelMessageEvent) {
             Style.EMPTY
         }
     ))
-
-    TwitchLink.mc.inGameHud.chatHud.addMessage(text)
+    if (!Config.separateChatHud) {
+        TwitchLink.mc.inGameHud.chatHud.addMessage(text)
+    } else {
+        TwitchLink.twitchHud.addMessage(text)
+    }
 
 }

@@ -6,6 +6,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import dev.cosrnic.twitchlink.TwitchLink
 import dev.cosrnic.twitchlink.chat.joinChannel
 import dev.cosrnic.twitchlink.chat.leaveChannel
+import dev.cosrnic.twitchlink.config.Config
 import dev.cosrnic.twitchlink.utils.Utils
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal
@@ -65,6 +66,17 @@ object TwitchLinkCommand {
                         TwitchLink.mc.inGameHud.chatHud.addMessage(Utils.prefix.copy().append(Text.literal("Disabled Twitch Chat Link!").formatted(Formatting.RED)))
                         return@executes 0
                     }
+                )
+                .then(literal("feature")
+                    .then(literal("toggle")
+                        .then(literal("separateChatHud")
+                            .executes {
+                                Config.separateChatHud = !Config.separateChatHud
+                                TwitchLink.mc.inGameHud.chatHud.addMessage(Utils.prefix.copy().append(Text.literal("Toggled separateChatHud ${if (Config.separateChatHud) "ON" else "OFF"}!").formatted(if (Config.separateChatHud) Formatting.GREEN else Formatting.RED)))
+                                return@executes 0
+                            }
+                        )
+                    )
                 )
         )
     }
