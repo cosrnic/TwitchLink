@@ -1,15 +1,12 @@
 package dev.cosrnic.twitchlink.utils
 
-import net.minecraft.text.ClickEvent
-import net.minecraft.text.HoverEvent
-import net.minecraft.text.Style
-import net.minecraft.text.Text
+import net.minecraft.text.*
 import net.minecraft.util.Formatting
 import java.lang.NumberFormatException
 
 object Utils {
 
-    val prefix = Text.literal("[TL] ").setStyle(
+    val prefix: MutableText = Text.literal("[TL] ").setStyle(
         Style.EMPTY.withFormatting(Formatting.LIGHT_PURPLE)
             .withClickEvent(
                 ClickEvent(

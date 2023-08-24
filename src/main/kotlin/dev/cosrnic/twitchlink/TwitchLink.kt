@@ -13,9 +13,9 @@ import net.minecraft.client.MinecraftClient
 object TwitchLink : ModInitializer {
 
     lateinit var twitchClient: TwitchClient
-    var mc: MinecraftClient = MinecraftClient.getInstance();
+    var mc: MinecraftClient = MinecraftClient.getInstance()
 
-    var chatList: List<String> = listOf();
+    var chatList: List<String> = listOf()
 
     override fun onInitialize() {
 
@@ -27,12 +27,13 @@ object TwitchLink : ModInitializer {
         println("EPIC POG")
 
         ClientLifecycleEvents.CLIENT_STOPPING.register {
-            println("Stopping TwitchClient Chat connection")
-            twitchClient.chat.disconnect();
+            println("Disconnecting Twitch Chat!")
+            twitchClient.chat.disconnect()
         }
 
         twitchClient.eventManager.onEvent(ChannelMessageEvent::class.java) { event -> twitchMessageEvent(event) }
 
 
     }
+
 }

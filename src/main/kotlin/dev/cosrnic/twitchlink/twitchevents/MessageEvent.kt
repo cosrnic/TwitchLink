@@ -24,7 +24,7 @@ fun twitchMessageEvent(event: ChannelMessageEvent) {
             ).formatted(Formatting.LIGHT_PURPLE)
         )
 
-    val badges = event.messageEvent.badges;
+    val badges = event.messageEvent.badges
     if (badges.isNotEmpty()) {
         badges.forEach {
             if (it.key.equals("broadcaster")) {
