@@ -24,8 +24,6 @@ object TwitchLink : ModInitializer {
         val cre = ClientCommandRegistrationCallback.EVENT
         cre.register(TwitchLinkCommand::register)
 
-        println("EPIC POG")
-
         ClientLifecycleEvents.CLIENT_STOPPING.register {
             println("Disconnecting Twitch Chat!")
             twitchClient.chat.disconnect()
