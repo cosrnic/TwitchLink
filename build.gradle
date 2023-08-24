@@ -15,6 +15,7 @@ repositories {
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
+    maven { url "https://maven.awakenedredstone.com"}
 }
 
 dependencies {
@@ -24,12 +25,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     modImplementation("net.fabricmc:fabric-language-kotlin:1.10.8+kotlin.1.9.0")
-    implementation(group: 'com.github.twitch4j', name: 'twitch4j-chat', version: '1.16.0') {
-        exclude group: "commons-lang"
-        exclude group: "org.slf4j"
-        exclude group: "io.github.openfeign"
-    }
-    include modApi("com.github.twitch4j:twitch4j:1.16.0")
+    modImplementation "com.github.twitch4j:twitch4j-fabric:1.16.0+1.2.0"
 }
 
 processResources {
