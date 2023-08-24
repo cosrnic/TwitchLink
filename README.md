@@ -1,5 +1,5 @@
 ## <center>TwitchLink </center>
-### <center>Link Twitch and Minecraft together!<img src="https://raw.githubusercontent.com/cosrnic/TwitchLink/main/images/TwitchLinkLogo.png?token=GHSAT0AAAAAABW3BXBHLWZVI23KWAC3YIIYZHGUJIA" width=50% height=50% alt="Logo"></center>
+### <center>Link Twitch and Minecraft together!<br /><img src="https://raw.githubusercontent.com/cosrnic/TwitchLink/main/images/TwitchLinkLogo.png?token=GHSAT0AAAAAABW3BXBHLWZVI23KWAC3YIIYZHGUJIA" width=50% height=50% alt="Logo"></center>
 
 ## Getting started
 To get started, download the mod from [Modrinth](https://modrinth.com/mod/twitchlink) or the [Releases Tab](https://github.com/cosrnic/TwitchLink/releases). Make sure to also have Fabric 1.20 installed!<br />
