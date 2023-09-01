@@ -10,7 +10,7 @@ import net.minecraft.util.Formatting
 fun twitchMessageEvent(event: ChannelMessageEvent) {
     val text = Text.empty()
         .append(
-            Text.literal(if (Config.separateChatHud) "[${event.messageEvent.channelName.orElse(event.channel.name)}] " else "[TL] ").setStyle(
+            Text.literal(if (Config.separateChatHud && TwitchLink.chatList.size > 1) "[${event.messageEvent.channelName.orElse(event.channel.name)}] " else "[TL] ").setStyle(
                 Style.EMPTY.withHoverEvent(
                     HoverEvent(
                         HoverEvent.Action.SHOW_TEXT, Text.literal("TwitchLink").formatted(Formatting.LIGHT_PURPLE).append(
@@ -22,7 +22,7 @@ fun twitchMessageEvent(event: ChannelMessageEvent) {
                         "https://github.com/cosrnic/TwitchLink"
                     )
                 )
-            ).formatted(if (Config.separateChatHud) Formatting.DARK_GRAY else Formatting.LIGHT_PURPLE)
+            ).formatted(Formatting.LIGHT_PURPLE)
         )
 
     val badges = event.messageEvent.badges

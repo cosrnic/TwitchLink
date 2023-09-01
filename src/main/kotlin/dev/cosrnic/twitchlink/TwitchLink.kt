@@ -3,9 +3,13 @@ package dev.cosrnic.twitchlink
 import com.github.twitch4j.TwitchClient
 import com.github.twitch4j.TwitchClientBuilder
 import com.github.twitch4j.chat.events.channel.ChannelMessageEvent
+import com.github.twitch4j.chat.events.channel.CheerEvent
+import com.github.twitch4j.chat.events.channel.GiftSubscriptionsEvent
 import com.github.twitch4j.chat.events.channel.SubscriptionEvent
 import dev.cosrnic.twitchlink.commands.TwitchLinkCommand
 import dev.cosrnic.twitchlink.hud.TwitchHud
+import dev.cosrnic.twitchlink.twitchevents.twitchCheerEvent
+import dev.cosrnic.twitchlink.twitchevents.twitchGiftSubscribeEvent
 import dev.cosrnic.twitchlink.twitchevents.twitchMessageEvent
 import dev.cosrnic.twitchlink.twitchevents.twitchSubscribeEvent
 import net.fabricmc.api.ModInitializer
@@ -36,6 +40,8 @@ object TwitchLink : ModInitializer {
 
         twitchClient.eventManager.onEvent(ChannelMessageEvent::class.java) { event -> twitchMessageEvent(event) }
         twitchClient.eventManager.onEvent(SubscriptionEvent::class.java) { event -> twitchSubscribeEvent(event) }
+        twitchClient.eventManager.onEvent(GiftSubscriptionsEvent::class.java) { event -> twitchGiftSubscribeEvent(event) }
+        twitchClient.eventManager.onEvent(CheerEvent::class.java) { event -> twitchCheerEvent(event) }
 
 
     }

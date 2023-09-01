@@ -23,69 +23,67 @@ class TwitchHud {
     private var hasUnreadNewMessages = false
 
     fun render(context: DrawContext, currentTick: Int) {
-        val i = getVisibleLineCount()
-        val j = visibleMessages.size
-        if (j > 0) {
-            val f = getChatScale().toFloat()
-            val k = MathHelper.ceil(this.getWidth().toFloat() / f)
+        val visibleLineCount = getVisibleLineCount()
+        val visibleMessages = visibleMessages.size
+        if (visibleMessages > 0) {
+            val chatScale = getChatScale().toFloat()
+            val something = MathHelper.ceil(this.getWidth().toFloat() / chatScale)
             context.matrices.push()
-            context.matrices.scale(f, f, 1.0f)
+            context.matrices.scale(chatScale, chatScale, 1.0f)
             context.matrices.translate(4.0f, 0.0f, 0.0f)
-            val m = MathHelper.floor((getHeight()).toFloat() / f)
-            val d = client.options.chatOpacity.value as Double * 0.8999999761581421 + 0.10000000149011612
-            val e = client.options.textBackgroundOpacity.value as Double
-            val g = client.options.chatLineSpacing.value as Double
-            val o = getLineHeight()
-            val p = (-8.0 * (g + 1.0) + 4.0 * g).roundToInt()
-            var q = 0
-            var t: Int
-            var u: Int
-            var v: Int
+            val something2 = MathHelper.floor((getHeight()).toFloat() / chatScale)
+            val chatOpacity = client.options.chatOpacity.value as Double * 0.8999999761581421 + 0.10000000149011612
+            val textBackgroundOpacity = client.options.textBackgroundOpacity.value as Double
+            val chatLineSpacing = client.options.chatLineSpacing.value as Double
+            val lineHeight = getLineHeight()
+            val centerSpacing = (-8.0 * (chatLineSpacing + 1.0) + 4.0 * chatLineSpacing).roundToInt()
+            var age: Int
+            var chatColour: Int
+            var textBackgroundColour: Int
             var x: Int
-            var r = 0
-            while (r + scrolledLines < visibleMessages.size && r < i) {
-                val s = r + scrolledLines
-                val visible = visibleMessages[s]
-                t = currentTick - visible.addedTime()
-                if (t < 200) {
-                    val h = getMessageOpacityMultiplier(t)
-                    u = (255.0 * h * d).toInt()
-                    v = (255.0 * h * e).toInt()
-                    ++q
-                    if (u > 3) {
-                        x = m - r * o
-                        val y = x + p
+            var counter = 0
+            while (counter + scrolledLines < this.visibleMessages.size && visibleLineCount > counter) {
+                val countedLines = scrolledLines + counter
+                val visible = this.visibleMessages[countedLines]
+                age = currentTick - visible.addedTime()
+                if (age < 300) {
+                    val opacityMultiplier = getMessageOpacityMultiplier(age)
+                    chatColour = (255.0 * opacityMultiplier * chatOpacity).toInt()
+                    textBackgroundColour = (255.0 * opacityMultiplier * textBackgroundOpacity).toInt()
+                    if (chatColour > 3) {
+                        x = something2 - counter * lineHeight
+                        val y = x + centerSpacing
                         context.matrices.push()
                         context.matrices.translate(0.0f, 0.0f, 50.0f)
-                        context.fill(-4, x - o, 0 + k + 4 + 4, x, v shl 24)
+                        context.fill(-4, x - lineHeight, 0 + something + 4 + 4, x, textBackgroundColour shl 24)
                         context.matrices.translate(0.0f, 0.0f, 50.0f)
                         context.drawTextWithShadow(
                             client.textRenderer,
                             visible.content(),
                             0,
                             y,
-                            16777215 + (u shl 24)
+                            16777215 + (chatColour shl 24)
                         )
                         context.matrices.pop()
                     }
                 }
-                ++r
+                ++counter
             }
-            val ac = client.messageHandler.unprocessedMessageCount
-            val ad: Int
-            if (ac > 0L) {
-                ad = (128.0 * d).toInt()
-                t = (255.0 * e).toInt()
+            val unprocessedMessagesCount = client.messageHandler.unprocessedMessageCount
+            val something3: Int
+            if (unprocessedMessagesCount > 0L) {
+                something3 = (128.0 * chatOpacity).toInt()
+                age = (255.0 * textBackgroundOpacity).toInt()
                 context.matrices.push()
-                context.matrices.translate(0.0f, m.toFloat(), 50.0f)
-                context.fill(-2, 0, k + 4, 9, t shl 24)
+                context.matrices.translate(0.0f, something2.toFloat(), 50.0f)
+                context.fill(-2, 0, something + 4, 9, age shl 24)
                 context.matrices.translate(0.0f, 0.0f, 50.0f)
                 context.drawTextWithShadow(
                     client.textRenderer,
-                    Text.translatable("chat.queue", *arrayOf<Any>(ac)),
+                    Text.translatable("chat.queue", *arrayOf<Any>(unprocessedMessagesCount)),
                     0,
                     1,
-                    16777215 + (ad shl 24)
+                    16777215 + (something3 shl 24)
                 )
                 context.matrices.pop()
             }
