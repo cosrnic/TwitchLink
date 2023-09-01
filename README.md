@@ -14,7 +14,7 @@ When in-game, type `/twitchlink` and a list of sub commands should appear!
   - disable - Disable the Twitch Chat Link
 
 ### Todo:
-- Refactor/Redo Chat overlay and make it move able, maybe use [Jarvis](https://github.com/romangraef/jarvis)?
+- Refactor/Redo Chat overlay and make it move able, maybe use [Jarvis](https://github.com/romangraef/jarvis) or [Elementa](https://github.com/EssentialGG/Elementa)?
 - Let the user input oauth tokens and such to:
   - send messages in chat
   - follow events
