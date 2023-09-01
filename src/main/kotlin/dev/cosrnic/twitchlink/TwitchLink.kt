@@ -3,9 +3,11 @@ package dev.cosrnic.twitchlink
 import com.github.twitch4j.TwitchClient
 import com.github.twitch4j.TwitchClientBuilder
 import com.github.twitch4j.chat.events.channel.ChannelMessageEvent
+import com.github.twitch4j.chat.events.channel.SubscriptionEvent
 import dev.cosrnic.twitchlink.commands.TwitchLinkCommand
 import dev.cosrnic.twitchlink.hud.TwitchHud
 import dev.cosrnic.twitchlink.twitchevents.twitchMessageEvent
+import dev.cosrnic.twitchlink.twitchevents.twitchSubscribeEvent
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents
@@ -22,7 +24,7 @@ object TwitchLink : ModInitializer {
 
     override fun onInitialize() {
 
-        twitchClient = TwitchClientBuilder.builder().withEnableChat(true).build()
+        twitchClient = TwitchClientBuilder.builder().withEnableChat(true).withEnableHelix(true).build()
 
         val cre = ClientCommandRegistrationCallback.EVENT
         cre.register(TwitchLinkCommand::register)
@@ -33,6 +35,7 @@ object TwitchLink : ModInitializer {
         }
 
         twitchClient.eventManager.onEvent(ChannelMessageEvent::class.java) { event -> twitchMessageEvent(event) }
+        twitchClient.eventManager.onEvent(SubscriptionEvent::class.java) { event -> twitchSubscribeEvent(event) }
 
 
     }

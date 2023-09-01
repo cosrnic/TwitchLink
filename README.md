@@ -14,8 +14,9 @@ When in-game, type `/twitchlink` and a list of sub commands should appear!
   - disable - Disable the Twitch Chat Link
 
 ### Todo:
-- Add a feature to move Twitch Chat to the right side of the screen instead of using the ChatHUD
-  - make this toggleable
+- Refactor/Redo Chat overlay and make it move able, maybe use [Jarvis](https://github.com/romangraef/jarvis)?
 - Let the user input oauth tokens and such to:
   - send messages in chat
-  - get other events
+  - follow events
+- Add a different overlay for the Subscription Events, maybe an event log? 
+- Adjust Chat Overlay to be permanent and clickable (allow to delete messages from the chat maybe?)
